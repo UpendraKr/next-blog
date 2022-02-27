@@ -124,3 +124,11 @@
   margin: 0 25px;
   font-weight: bold;
 }
+
+.myImg{
+  border-radius:10px;
+}
+
+.myImgWrap{
+  padding: 10px;
+}
