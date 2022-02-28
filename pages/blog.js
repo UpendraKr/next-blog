@@ -1,28 +1,46 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../styles/Blog.module.css'
 
 
 // step1: get all blogs form files
 // step2: iterate through on display
 const blog = () => {
+
+  const [blogs, setBlogs] = useState([]);
+
+  useEffect(() => {
+    console.log("use effect is running.")
+    let url = "http://localhost:3000/api/blogs"
+    fetch(url).then((res) => {
+      return res.json();
+    })
+      .then((parsed) => {
+        // console.log(parsed)
+        setBlogs(parsed)
+      })
+  }, [])
+
+
   return (
     <main className={styles.main}>
-      <div className="blogs">
       <h2>Popular blogs:</h2>
-        <div className="blogitem">
-          <Link href='/blogpost/learn-javascript'>
-          <h3 className={styles.blogItemh3}>HOw to learn javascript in 2020</h3>
-          </Link>
 
-          <p>javascript is a very popular lanuage. It is simple to use.</p>
-          <h3>HOw to learn javascript in 2020</h3>
-          <p>javascript is a very popular lanuage. It is simple to use.</p>
-          <h3>HOw to learn javascript in 2020</h3>
-          <p>javascript is a very popular lanuage. It is simple to use.</p>
-        </div>
+      <div className="blogitem3">
+        {blogs.map((blogItem) => {
+          return (
+            <div key={blogItem.slug} >
+
+              <Link href={`/blogpost/${blogItem.slug}`}>
+              <h3 className={styles.blogItemh3}>{blogItem.title}</h3>
+              </Link>
+              <p>{blogItem.content.substr(0, 140)}...........</p>
+            </div>
+          )
+        })}
 
       </div>
+
     </main>
 
   )
