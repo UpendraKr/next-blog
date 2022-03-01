@@ -2,24 +2,22 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import styles from '../styles/Blog.module.css'
 
+const blog = (props) => {
+  const blogs = props.allBlogs
 
-// step1: get all blogs form files
-// step2: iterate through on display
-const blog = () => {
+    // const [blogs, setBlogs] = useState([]);
 
-  const [blogs, setBlogs] = useState([]);
-
-  useEffect(() => {
-    console.log("use effect is running.")
-    let url = "http://localhost:3000/api/blogs"
-    fetch(url).then((res) => {
-      return res.json();
-    })
-      .then((parsed) => {
-        // console.log(parsed)
-        setBlogs(parsed)
-      })
-  }, [])
+  // useEffect(() => {
+  //   console.log("use effect is running.")
+  //   let url = "http://localhost:3000/api/blogs"
+  //   fetch(url).then((res) => {
+  //     return res.json();
+  //   })
+  //     .then((parsed) => {
+  //       // console.log(parsed)
+  //       setBlogs(parsed)
+  //     })
+  // }, [])
 
 
   return (
@@ -44,6 +42,13 @@ const blog = () => {
     </main>
 
   )
+}
+
+export async function getServerSideProps() {
+  const res = await fetch(`http://localhost:3000/api/blogs`)
+  const allBlogs = await res.json()
+
+  return { props: { allBlogs } }
 }
 
 export default blog
