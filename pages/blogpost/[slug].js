@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import styles from '../../styles/BlogPost.module.css'
+import * as fs from 'fs';
 
-// 1.Find the file as per slug.
-// 2. display file data
-const slug = (props) => {
+const Slug = (props) => {
   const blogItem = props.blogItem
+  console.log("=======", blogItem.title)
   // const [blogItem, setBlogItem] = useState({})
 
   // const router = useRouter()
   // // console.log(router.query)
   // const { slug } = router.query
+  
 
   // useEffect(() => {
   //   if (! router.isReady) return;
@@ -28,10 +29,10 @@ const slug = (props) => {
   return (
     <div className={styles.container}>
       <div className={styles.main}>
-        <h1>Title for the page {blogItem.title}</h1>
+        <h1>Title for the page {blogItem?.title}</h1>
         <hr></hr>
         <div>
-        {blogItem.content}
+        {blogItem?.content}
         </div>
       </div>
 
@@ -40,13 +41,31 @@ const slug = (props) => {
   )
 };
 
-export async function getServerSideProps(context) {
-  const { slug } = context.query
-  let url = `http://localhost:3000/api/getblog?slug=${slug}`
-  const res = await fetch(url)
-  const blogItem = await res.json()
-
-  return { props: { blogItem } }
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { slug: 'how-to-learn-flask' } },
+      { params: { slug: 'how-to-learn-javascript' } },
+      { params: { slug: 'how-to-learn-nextjs' } }
+    ],
+    fallback: true 
+  };
 }
 
-export default slug;
+export async function getStaticProps(context) {
+  const { slug } = context.params
+
+  let blogItem = await fs.promises.readFile(`blogdata/${slug}.json`, 'utf-8')
+  return { props: { blogItem: JSON.parse(blogItem) } }
+}
+
+// export async function getServerSideProps(context) {
+//   const { slug } = context.query
+//   let url = `http://localhost:3000/api/getblog?slug=${slug}`
+//   const res = await fetch(url)
+//   const blogItem = await res.json()
+
+//   return { props: { blogItem } }
+// }
+
+export default Slug;

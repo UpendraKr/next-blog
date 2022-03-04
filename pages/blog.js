@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import styles from '../styles/Blog.module.css'
+import * as fs from 'fs';
 
 const blog = (props) => {
   const blogs = props.allBlogs
@@ -44,11 +45,27 @@ const blog = (props) => {
   )
 }
 
-export async function getServerSideProps() {
-  const res = await fetch(`http://localhost:3000/api/blogs`)
-  const allBlogs = await res.json()
+export async function getStaticProps() {
+  let data = await fs.promises.readdir("blogdata")
+
+  let allBlogs = [];
+  for (let index=0; index < data.length; index++){
+    const item = data[index]
+    let myFile = await fs.promises.readFile("blogdata/" + item, 'utf-8')
+    // console.log(myFile)
+    allBlogs.push(JSON.parse(myFile))
+  }
+
 
   return { props: { allBlogs } }
 }
+
+// For server-side rendering:
+// export async function getServerSideProps() {
+//   const res = await fetch(`http://localhost:3000/api/blogs`)
+//   const allBlogs = await res.json()
+
+//   return { props: { allBlogs } }
+// }
 
 export default blog

@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import Image from 'next/image'
+// import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
@@ -26,7 +26,8 @@ export default function Home() {
           <span className='mySpan'>Hunting Coder</span>
         </h1>
         <div className={styles.myImgWrap}>
-        <Image className={styles.myImg} src="/homeimg.jpg" width={200} height={200}></Image>
+        {/* <Image className={styles.myImg} src="/homeimg.jpg" width={200} height={200}></Image> */}
+        <img className={styles.myImg} src="/homeimg.jpg" width={200} height={200} />
         </div>
         
 
@@ -56,9 +57,7 @@ export default function Home() {
           rel="noopener noreferrer"
         >
           Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
+
         </a>
       </footer>
     </div>
