@@ -5,7 +5,11 @@ import * as fs from 'fs';
 
 const Slug = (props) => {
   const blogItem = props.blogItem
-  console.log("=======", blogItem.title)
+
+  function createMarkup(content) {
+    return {__html: content};
+  }
+
   // const [blogItem, setBlogItem] = useState({})
 
   // const router = useRouter()
@@ -31,9 +35,7 @@ const Slug = (props) => {
       <div className={styles.main}>
         <h1>Title for the page {blogItem?.title}</h1>
         <hr></hr>
-        <div>
-        {blogItem?.content}
-        </div>
+        { blogItem && <div dangerouslySetInnerHTML={createMarkup(blogItem?.content)}></div>}
       </div>
 
     </div>
