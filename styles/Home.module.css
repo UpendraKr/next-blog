@@ -39,19 +39,16 @@
 }
 
 .title {
-  margin: 0;
+  margin: 5px;
   line-height: 1.15;
   font-size: 4rem;
 }
 
 .title,
 .description {
-  text-align: center;
-}
-
-.description {
-
-  font-size: 1.5rem;
+  text-align: justify;
+  max-width: 50vw;
+  font-size: 1.2em;
 }
 
 .code {
@@ -126,9 +123,9 @@
 }
 
 .myImg{
-  border-radius:10px;
+  border-radius:100px;
 }
 
 .myImgWrap{
-  padding: 10px;
+  padding: 18px;
 }
