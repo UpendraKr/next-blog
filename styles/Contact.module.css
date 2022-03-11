@@ -1,0 +1,12 @@
+.container{
+    max-width: 45vw ;
+    margin: auto;
+}
+
+.mb{
+    margin-bottom: 21px;
+}
+
+.label{
+    margin: 1px 1px;
+}
