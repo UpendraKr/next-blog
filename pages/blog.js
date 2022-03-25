@@ -5,11 +5,11 @@ import * as fs from 'fs';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 const blog = (props) => {
-  const [blogs, setBlogs] = useState(props.allBlogs.slice(0, 2));
-  const [count, setCount] = useState(2)
+  const [blogs, setBlogs] = useState(props.allBlogs.slice(0, 5));
+  const [count, setCount] = useState(5)
 
   const fetchMoreData = async () => {
-    let d = await fetch(`http://localhost:3000/api/blogs?count=${count + 2}`)
+    let d = await fetch(`http://localhost:3000/api/blogs?count=${count + 5}`)
     let data = await d.json()
     setBlogs(data)
     setCount(count+2)
